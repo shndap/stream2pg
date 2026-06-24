@@ -7,10 +7,10 @@
 Create tables. Evolve schemas. Load data.
 
 <a href="https://pypi.org/project/stream2pg/">
-  <img src="https://img.shields.io/pypi/v/stream2pg.svg" alt="PyPI">
+  <img src="https://img.shields.io/pypi/v/stream2pg.svg?cacheSeconds=60" alt="PyPI">
 </a>
 <a href="https://pypi.org/project/stream2pg/">
-  <img src="https://img.shields.io/pypi/pyversions/stream2pg.svg" alt="Python">
+  <img src="https://img.shields.io/pypi/pyversions/stream2pg.svg?cacheSeconds=60" alt="Python">
 </a>
 <a href="LICENSE">
   <img src="https://img.shields.io/github/license/shndap/stream2pg">
