@@ -33,12 +33,15 @@ class Stream2Pg:
 
         df = create_kafka_stream(spark, kafka_cfg)
 
+        topic_prefix = kafka_cfg.get("topic_prefix", "")
+
         def foreach_batch_fn(batch_df, batch_id):
             process_batch(
                 batch_df,
                 batch_id,
                 postgres_cfg,
                 error_strategy,
+                topic_prefix,
                 on_metrics=self.on_metrics,
             )
 

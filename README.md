@@ -86,7 +86,7 @@ config = {
     },
     "kafka": {
         "bootstrap_servers": "localhost:9092",
-        "subscribe_pattern": "mobility-.*",
+        "topic_prefix": "mobility-",
         "starting_offsets": "earliest",
         "fail_on_data_loss": "false",
     },
@@ -158,11 +158,20 @@ run(config)
 ```python
 {
     "bootstrap_servers": "localhost:9092",
+    "topic_prefix": "mobility-",
     "subscribe_pattern": "mobility-.*",
     "starting_offsets": "earliest",
     "fail_on_data_loss": "false",
 }
 ```
+
+| Parameter          | Description                                              |
+|--------------------|----------------------------------------------------------|
+| `bootstrap_servers`| Kafka broker addresses (default: `localhost:9092`)       |
+| `topic_prefix`     | Prefix to strip from topic names for table names         |
+| `subscribe_pattern`| Kafka topic subscription pattern (default: `{prefix}.*`)|
+| `starting_offsets` | Where to start reading (default: `earliest`)             |
+| `fail_on_data_loss`| Fail on data loss (default: `false`)                     |
 
 ### Processing
 

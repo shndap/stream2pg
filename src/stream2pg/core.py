@@ -27,6 +27,7 @@ def process_batch(
     batch_id: int,
     pg_config: dict[str, Any],
     error_strategy: ErrorStrategy,
+    topic_prefix: str = "",
     on_metrics: Optional[Callable[..., None]] = None,
 ) -> None:
     start_time = time.time()
@@ -52,7 +53,11 @@ def process_batch(
     try:
         known_columns: dict[str, frozenset] = {}
         for row in batch_df.toLocalIterator():
-            table_name = row.topic.replace("mobility-", "")
+            table_name = (
+                row.topic[len(topic_prefix) :]
+                if row.topic.startswith(topic_prefix)
+                else row.topic
+            )
             try:
                 record = json.loads(row.value)
             except json.JSONDecodeError:
@@ -93,15 +98,16 @@ def create_kafka_stream(
     kafka_config: dict[str, Any],
     schema: Optional[StructType] = None,
 ):
+    topic_prefix = kafka_config.get("topic_prefix", "")
+    subscribe_pattern = kafka_config.get("subscribe_pattern", f"{topic_prefix}.*")
+
     reader = (
         spark.readStream.format("kafka")
         .option(
             "kafka.bootstrap.servers",
             kafka_config.get("bootstrap_servers", "localhost:9092"),
         )
-        .option(
-            "subscribePattern", kafka_config.get("subscribe_pattern", "mobility-.*")
-        )
+        .option("subscribePattern", subscribe_pattern)
         .option("startingOffsets", kafka_config.get("starting_offsets", "earliest"))
         .option(
             "failOnDataLoss",
