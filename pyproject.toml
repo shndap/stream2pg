@@ -1,21 +1,29 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "stream2pg"
 version = "0.1.0"
 description = "Kafka to PostgreSQL sink using Spark Structured Streaming"
-readme = "README.md"
-license = {text = "MIT"}
+readme = {file = "README.md", content-type = "text/markdown"}
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.9"
 authors = [
-    {name = "Your Name", email = "you@example.com"},
+    {name = "Sahand Akramipour", email = "sahandap@gmail.com"},
 ]
 keywords = ["kafka", "spark", "postgresql", "streaming", "etl"]
 classifiers = [
     "Development Status :: 4 - Beta",
-    "License :: OSI Approved :: MIT License",
+
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+
+    "Topic :: Database",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: System :: Distributed Computing",
+
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -23,18 +31,21 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
-    "psycopg2",
+    "psycopg2-binary>=2.9",
     "pyspark>=3.0",
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest",
+    "ruff",
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourname/stream2pg"
-Repository = "https://github.com/yourname/stream2pg"
+Homepage = "https://github.com/shndap/stream2pg"
+Documentation = "https://github.com/shndap/stream2pg"
+Repository = "https://github.com/shndap/stream2pg"
+Issues = "https://github.com/shndap/stream2pg/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
